@@ -31,7 +31,7 @@
   ],
   "license": "Apache-2.0",
   "devDependencies": {
-    "auto-changelog": "^1.16.2",
+    "auto-changelog": "^2.5.0",
     "gh-release": "^7.0.2",
     "ts-node": "^10.9.2"
   },
