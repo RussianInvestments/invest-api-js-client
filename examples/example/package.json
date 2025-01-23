@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development ts-node index.ts",
+    "start-example-promise": "cross-env NODE_ENV=development ts-node client-promises.ts",
     "error": "ts-node handleStreamingError.ts"
   },
   "author": "",
@@ -13,16 +14,23 @@
     "@grpc/grpc-js": "^1.5.0",
     "@grpc/proto-loader": "^0.6.9",
     "@tinkoff/invest-openapi-js-sdk": "^1.2.5",
+    "invest-js": "file:../../",
+    "@types/ramda": "^0.30.2",
     "dotenv": "^16.0.0",
     "google-protobuf": "^3.19.3",
-    "grpc-tools": "^1.11.2",
+    "grpc": "^1.24.11",
     "grpc_tools_node_protoc_ts": "^5.3.2",
+    "grpc-tools": "^1.11.2",
+    "nice-grpc": "^2.1.10",
+    "protobufjs": "^7.4.0",
     "protoc-gen-grpc": "^2.0.3",
-    "protoc-gen-ts": "^0.8.1"
+    "protoc-gen-ts": "^0.8.1",
+    "rxjs": "^7.8.1",
+    "rxjs-grpc": "^0.2.7"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "ts-node": "^8.8.1",
+    "ts-node": "^8.10.2",
     "typescript": "^4.5.4"
   }
 }

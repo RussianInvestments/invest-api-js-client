@@ -10,6 +10,7 @@ import type {
 } from './types';
 import { PROTO_PATH } from './constants';
 import { load } from './load';
+import { TTechApiClient } from './client2'
 import { InstrumentsService } from './services/InstrumentsService';
 
 export const { SandboxService } = load<SandboxType>(PROTO_PATH + 'sandbox.proto');
@@ -71,3 +72,4 @@ class OpenAPIClient {
 }
 
 export { OpenAPIClient };
+export { TTechApiClient };

@@ -22,11 +22,26 @@ SDK для работы с OpenAPI Тинькофф Инвестиции, кот
 
 ## Пример
 
-см. более сложный пример в [example](./example)
+с версии 1.28 клиент с поддержкой promise [подробнее](https://github.com/deeplay-io/nice-grpc/tree/master/packages/nice-grpc#client)
 
 ```typescript
+import { TTechApiClient } from '@tinkoff/invest-js';
 
+const clientV2 = new TTechApiClient({
+  token: process.env.TOKEN as string,
+});
+
+try {
+  response = await clientV2.instruments.shares({});
+} catch (error: unknown) {
+  if (error instanceof ClientError && error.code === Status.NOT_FOUND) {
+    response = null;
+  } else {
+    throw error;
+  }
+}
 ```
+см. более сложные примеры в [examples](./examples)
 
 ## Sandbox
 

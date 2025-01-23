@@ -14,7 +14,7 @@
     "outDir": "build"
   },
   "exclude": [
-    "example",
+    "examples/example",
     "build"
   ],
   "watchOptions": {
