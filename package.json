@@ -1,6 +1,6 @@
 {
   "name": "@tinkoff/invest-js",
-  "version": "1.27.1",
+  "version": "1.27.1-RC2",
   "description": "T-Invest OpenAPI Client",
   "types": "./build/index.d.ts",
   "engines": {
@@ -10,9 +10,7 @@
     "examples": "examples"
   },
   "exports": {
-    ".": "./build/index.js",
-    "./build/compiled_contracts/common": "./build/compiled_contracts/common.js",
-    "./build/compiled_contracts/marketdata": "./build/compiled_contracts/marketdata.js"
+    ".": "./build/index.js"
   },
   "scripts": {
     "build": "sh ./tools/build.sh",
@@ -43,9 +41,9 @@
     "@grpc/grpc-js": "^1.12.2",
     "@grpc/proto-loader": "^0.7.13",
     "@types/node": "^22.8.5",
-    "grpc": "^1.24.11",
     "long": "^5.2.4",
     "nice-grpc": "^2.1.10",
+    "node-pre-gyp": "^0.17.0",
     "prettier": "^3.3.3",
     "protobufjs": "^7.4.0",
     "tslib": "^2.0.0",
