@@ -1,13 +1,16 @@
 import 'dotenv/config';
-import { TTechApiClient, md, instruments, common } from '@tinkoff/invest-js';
+import { TTechApiClient } from '@tinkoff/invest-js';
+import { InstrumentStatus } from '@tinkoff/invest-js/build/compiled_contracts/common.js'
+import { Share } from '@tinkoff/invest-js/build/compiled_contracts/instruments.js'
+import { MarketDataRequest, DeepPartial, SubscriptionAction, SubscribeCandlesRequest, SubscribeOrderBookRequest, SubscribeTradesRequest, SubscriptionInterval, CandleInstrument, OrderBookInstrument, TradeInstrument } from '@tinkoff/invest-js/build/compiled_contracts/marketdata.js'
 
 const clientV2 = new TTechApiClient({
     token: process.env.TOKEN as string,
 });
 
-async function loadShares(): Promise<instruments.Share[]> {
+async function loadShares(): Promise<Share[]> {
     try {
-        var sharesResponse = await clientV2.instruments.shares({ instrumentStatus: common.InstrumentStatus.INSTRUMENT_STATUS_BASE });
+        var sharesResponse = await clientV2.instruments.shares({ instrumentStatus: InstrumentStatus.INSTRUMENT_STATUS_BASE });
 
         var shares = sharesResponse.instruments
             .filter(instrument => instrument.apiTradeAvailableFlag)
@@ -22,7 +25,7 @@ async function loadShares(): Promise<instruments.Share[]> {
     }
 }
 
-async function connectMdStreams(shares: instruments.Share[]) {
+async function connectMdStreams(shares: Share[]) {
 
     var promiseReject, promiseResolve;
     const endRequestsStream = new Promise((resolve, reject) => {
@@ -30,24 +33,24 @@ async function connectMdStreams(shares: instruments.Share[]) {
         promiseResolve = resolve;
     });
 
-    async function* createRequests(): AsyncIterable<md.DeepPartial<md.MarketDataRequest>> {
-        yield md.MarketDataRequest.create({
-            subscribeCandlesRequest: md.SubscribeCandlesRequest.create({
-                subscriptionAction: md.SubscriptionAction.SUBSCRIPTION_ACTION_SUBSCRIBE,
-                instruments: shares.map(share => md.CandleInstrument.create({ instrumentId: share.uid, interval: md.SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_MINUTE })),
+    async function* createRequests(): AsyncIterable<DeepPartial<MarketDataRequest>> {
+        yield MarketDataRequest.create({
+            subscribeCandlesRequest: SubscribeCandlesRequest.create({
+                subscriptionAction: SubscriptionAction.SUBSCRIPTION_ACTION_SUBSCRIBE,
+                instruments: shares.map(share => CandleInstrument.create({ instrumentId: share.uid, interval: SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_MINUTE })),
                 waitingClose: true
             })
         });
-        yield md.MarketDataRequest.create({
-            subscribeOrderBookRequest: md.SubscribeOrderBookRequest.create({
-                subscriptionAction: md.SubscriptionAction.SUBSCRIPTION_ACTION_SUBSCRIBE,
-                instruments: shares.map(share => md.OrderBookInstrument.create({ instrumentId: share.uid, depth: 10 }))
+        yield MarketDataRequest.create({
+            subscribeOrderBookRequest: SubscribeOrderBookRequest.create({
+                subscriptionAction: SubscriptionAction.SUBSCRIPTION_ACTION_SUBSCRIBE,
+                instruments: shares.map(share => OrderBookInstrument.create({ instrumentId: share.uid, depth: 10 }))
             })
         });
-        yield md.MarketDataRequest.create({
-            subscribeTradesRequest: md.SubscribeTradesRequest.create({
-                subscriptionAction: md.SubscriptionAction.SUBSCRIPTION_ACTION_SUBSCRIBE,
-                instruments: shares.map(share => md.TradeInstrument.create({ instrumentId: share.uid }))
+        yield MarketDataRequest.create({
+            subscribeTradesRequest: SubscribeTradesRequest.create({
+                subscriptionAction: SubscriptionAction.SUBSCRIPTION_ACTION_SUBSCRIBE,
+                instruments: shares.map(share => TradeInstrument.create({ instrumentId: share.uid }))
             })
         });
         await endRequestsStream;

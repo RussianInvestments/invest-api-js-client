@@ -1,10 +1,34 @@
 import { createChannel, createClientFactory, ChannelCredentials, Metadata } from 'nice-grpc';
-import * as instruments from './compiled_contracts/instruments';
-import * as orders from './compiled_contracts/orders';
-import * as operations from './compiled_contracts/operations';
-import * as marketdata from './compiled_contracts/marketdata';
-import * as stoporders from './compiled_contracts/stoporders';
-import * as users from './compiled_contracts/users';
+import {
+    InstrumentsServiceClient,
+    InstrumentsServiceDefinition,
+} from './compiled_contracts/instruments';
+import {
+    OrdersStreamServiceClient,
+    OrdersStreamServiceDefinition,
+    OrdersServiceClient,
+    OrdersServiceDefinition
+} from './compiled_contracts/orders';
+import {
+    OperationsServiceClient,
+    OperationsServiceDefinition,
+    OperationsStreamServiceClient,
+    OperationsStreamServiceDefinition
+} from './compiled_contracts/operations';
+import {
+    MarketDataServiceClient,
+    MarketDataServiceDefinition,
+    MarketDataStreamServiceClient,
+    MarketDataStreamServiceDefinition
+} from './compiled_contracts/marketdata';
+import {
+    StopOrdersServiceClient,
+    StopOrdersServiceDefinition
+} from './compiled_contracts/stoporders';
+import {
+    UsersServiceClient,
+    UsersServiceDefinition
+} from './compiled_contracts/users';
 
 interface TTechAPIClientOptions {
     token: string;
@@ -17,15 +41,15 @@ interface TTechAPIClientOptions {
 
 class TTechApiClient {
 
-    instruments: instruments.InstrumentsServiceClient;
-    ordersStream: orders.OrdersStreamServiceClient;
-    orders: orders.OrdersServiceClient;
-    operations: operations.OperationsServiceClient;
-    operationsStream: operations.OperationsStreamServiceClient;
-    marketdata: marketdata.MarketDataServiceClient;
-    marketdataStream: marketdata.MarketDataStreamServiceClient;
-    stopOrders: stoporders.StopOrdersServiceClient;
-    users: users.UsersServiceClient;
+    instruments: InstrumentsServiceClient;
+    ordersStream: OrdersStreamServiceClient;
+    orders: OrdersServiceClient;
+    operations: OperationsServiceClient;
+    operationsStream: OperationsStreamServiceClient;
+    marketdata: MarketDataServiceClient;
+    marketdataStream: MarketDataStreamServiceClient;
+    stopOrders: StopOrdersServiceClient;
+    users: UsersServiceClient;
 
     constructor(config: TTechAPIClientOptions) {
         var token = config.token;
@@ -47,39 +71,39 @@ class TTechApiClient {
         const channel = createChannel(url, ChannelCredentials.createSsl());
 
         this.instruments = clientFactory.create(
-            instruments.InstrumentsServiceDefinition,
+            InstrumentsServiceDefinition,
             channel,
         );
         this.ordersStream = clientFactory.create(
-            orders.OrdersStreamServiceDefinition,
+            OrdersStreamServiceDefinition,
             channel
         );
         this.orders = clientFactory.create(
-            orders.OrdersServiceDefinition,
+            OrdersServiceDefinition,
             channel
         );
         this.operations = clientFactory.create(
-            operations.OperationsServiceDefinition,
+            OperationsServiceDefinition,
             channel
         );
         this.operationsStream = clientFactory.create(
-            operations.OperationsStreamServiceDefinition,
+            OperationsStreamServiceDefinition,
             channel
         );
         this.marketdata = clientFactory.create(
-            marketdata.MarketDataServiceDefinition,
+            MarketDataServiceDefinition,
             channel
         );
         this.marketdataStream = clientFactory.create(
-            marketdata.MarketDataStreamServiceDefinition,
+            MarketDataStreamServiceDefinition,
             channel
         );
         this.stopOrders = clientFactory.create(
-            stoporders.StopOrdersServiceDefinition,
+            StopOrdersServiceDefinition,
             channel
         );
         this.users = clientFactory.create(
-            users.UsersServiceDefinition,
+            UsersServiceDefinition,
             channel
         );
 
@@ -88,5 +112,3 @@ class TTechApiClient {
 }
 
 export { TTechApiClient }
-export { instruments, orders, operations, marketdata, stoporders, users }
-export * as common from './compiled_contracts/common';

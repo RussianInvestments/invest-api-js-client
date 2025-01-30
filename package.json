@@ -1,6 +1,6 @@
 {
   "name": "@tinkoff/invest-js",
-  "version": "1.27.1-RC2",
+  "version": "1.27.1-RC3",
   "description": "T-Invest OpenAPI Client",
   "types": "./build/index.d.ts",
   "engines": {
@@ -10,7 +10,9 @@
     "examples": "examples"
   },
   "exports": {
-    ".": "./build/index.js"
+    ".": "./build/index.js",
+    "./build/compiled_contracts/*": "./build/compiled_contracts/*",
+    "./build/compiled_contracts/": "./build/compiled_contracts/"
   },
   "scripts": {
     "build": "sh ./tools/build.sh",
