@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tinkoff/invest-js-grpc-web": "^1.0.1-RC1",
     "pinia": "^2.3.1",
     "ts-money": "^0.4.8",
     "vue": "^3.5.13"

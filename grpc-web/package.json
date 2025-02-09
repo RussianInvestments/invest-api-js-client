@@ -16,7 +16,8 @@
     "build": "microbundle",
     "dev": "microbundle watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate": "./node_modules/.bin/grpc_tools_node_protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./src/api --ts_proto_opt=env=browser,outputServices=nice-grpc,outputServices=generic-definitions,outputJsonMethods=false,useExactTypes=false,exportCommonSymbols=false,outputIndex=true --proto_path=./../investAPI/src/docs/contracts/ ./../investAPI/src/docs/contracts/*.proto"
+    "generate": "./node_modules/.bin/grpc_tools_node_protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./src/api --ts_proto_opt=env=browser,outputServices=nice-grpc,outputServices=generic-definitions,outputJsonMethods=false,useExactTypes=false,exportCommonSymbols=false,outputIndex=true --proto_path=./../investAPI/src/docs/contracts/ ./../investAPI/src/docs/contracts/*.proto; npm run post_generate",
+    "post_generate": "cat ./src/api/operations.ts| sed  -e 's/: MessageFns/: OperationsUtils.MessageFns/g' -e  $'s/interface MessageFns.*/export declare namespace OperationsUtils {\\\n export &/g' | sed -e $'$a\\\n}' > ./src/api/operations.ts_sed;mv -f ./src/api/operations.ts_sed ./src/api/operations.ts;cat ./src/api/orders.ts| sed  -e 's/: MessageFns/: OrdersUtils.MessageFns/g' -e  $'s/interface MessageFns.*/export declare namespace OrdersUtils {\\\n export &/g' | sed -e $'$a\\\n}' > ./src/api/orders.ts_sed;mv -f ./src/api/orders.ts_sed ./src/api/orders.ts;cat ./src/api/users.ts| sed  -e 's/: MessageFns/: UsersUtils.MessageFns/g' -e  $'s/interface MessageFns.*/export declare namespace UsersUtils {\\\n export &/g' | sed -e $'$a\\\n}' > ./src/api/users.ts_sed;mv -f ./src/api/users.ts_sed ./src/api/users.ts"
   },
   "author": "sr",
   "repository": {

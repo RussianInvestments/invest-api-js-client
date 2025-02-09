@@ -1,4 +1,4 @@
-import { ExchangeOrderType, InstrumentIdType, OrderDirection, OrderType, PortfolioResponse, Quotation, StopOrderDirection, StopOrderExpirationType, StopOrderType, TTechApiClient } from 'invest-js-grpc-web'
+import { ExchangeOrderType, InstrumentIdType, OrderDirection, OrderType, PortfolioResponse, Quotation, StopOrderDirection, StopOrderExpirationType, StopOrderType, TTechApiClient } from '@tinkoff/invest-js-grpc-web'
 import { Money, Currencies } from 'ts-money'
 import type Long from 'long';
 
@@ -12,7 +12,7 @@ Currencies.RUB = {
     name_plural: "Russian rubles"    
 }
 
-const client = new TTechApiClient({ token: 't.EqsWvcz64MTOiklfJ6i3L3jKHRHlgiZJcdjZSFN0o55h6SJfzO6ojZCAUVDZwVjcFMjnfP0uPuNHy4MqjQco5Q'})
+const client = new TTechApiClient({ token: 't....'})
 
 export async function allInstruments() {
     const shares = await client.instruments.shares({})

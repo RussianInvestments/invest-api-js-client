@@ -26,6 +26,10 @@ import {
     StopOrdersServiceDefinition
 } from './api/stoporders';
 import {
+    SandboxServiceClient,
+    SandboxServiceDefinition
+} from './api/sandbox'
+import {
     UsersServiceClient,
     UsersServiceDefinition
 } from './api/users';
@@ -50,6 +54,8 @@ class TTechApiClient {
     marketdataStream: MarketDataStreamServiceClient;
     stopOrders: StopOrdersServiceClient;
     users: UsersServiceClient;
+
+    sandbox: SandboxServiceClient;
 
     constructor(config: TTechAPIClientOptions) {
         var token = config.token;
@@ -107,6 +113,10 @@ class TTechApiClient {
             channel
         );
 
+        this.sandbox = clientFactory.create(
+            SandboxServiceDefinition,
+            channel
+        );
     }
 
 }
