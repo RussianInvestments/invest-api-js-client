@@ -1510,7 +1510,7 @@ function createBaseOperationsRequest(): OperationsRequest {
   return { accountId: "", from: undefined, to: undefined, state: undefined, figi: undefined };
 }
 
-export const OperationsRequest: MessageFns<OperationsRequest> = {
+export const OperationsRequest: OperationsUtils.MessageFns<OperationsRequest> = {
   encode(message: OperationsRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -1634,7 +1634,7 @@ function createBaseOperationsResponse(): OperationsResponse {
   return { operations: [] };
 }
 
-export const OperationsResponse: MessageFns<OperationsResponse> = {
+export const OperationsResponse: OperationsUtils.MessageFns<OperationsResponse> = {
   encode(message: OperationsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.operations) {
       Operation.encode(v!, writer.uint32(10).fork()).join();
@@ -1715,7 +1715,7 @@ function createBaseOperation(): Operation {
   };
 }
 
-export const Operation: MessageFns<Operation> = {
+export const Operation: OperationsUtils.MessageFns<Operation> = {
   encode(message: Operation, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -2053,7 +2053,7 @@ function createBaseOperationTrade(): OperationTrade {
   return { tradeId: "", dateTime: undefined, quantity: 0, price: undefined };
 }
 
-export const OperationTrade: MessageFns<OperationTrade> = {
+export const OperationTrade: OperationsUtils.MessageFns<OperationTrade> = {
   encode(message: OperationTrade, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.tradeId !== "") {
       writer.uint32(10).string(message.tradeId);
@@ -2163,7 +2163,7 @@ function createBasePortfolioRequest(): PortfolioRequest {
   return { accountId: "", currency: undefined };
 }
 
-export const PortfolioRequest: MessageFns<PortfolioRequest> = {
+export const PortfolioRequest: OperationsUtils.MessageFns<PortfolioRequest> = {
   encode(message: PortfolioRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -2254,7 +2254,7 @@ function createBasePortfolioResponse(): PortfolioResponse {
   };
 }
 
-export const PortfolioResponse: MessageFns<PortfolioResponse> = {
+export const PortfolioResponse: OperationsUtils.MessageFns<PortfolioResponse> = {
   encode(message: PortfolioResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.totalAmountShares !== undefined) {
       MoneyValue.encode(message.totalAmountShares, writer.uint32(10).fork()).join();
@@ -2553,7 +2553,7 @@ function createBasePositionsRequest(): PositionsRequest {
   return { accountId: "" };
 }
 
-export const PositionsRequest: MessageFns<PositionsRequest> = {
+export const PositionsRequest: OperationsUtils.MessageFns<PositionsRequest> = {
   encode(message: PositionsRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -2619,7 +2619,7 @@ function createBasePositionsResponse(): PositionsResponse {
   };
 }
 
-export const PositionsResponse: MessageFns<PositionsResponse> = {
+export const PositionsResponse: OperationsUtils.MessageFns<PositionsResponse> = {
   encode(message: PositionsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.money) {
       MoneyValue.encode(v!, writer.uint32(10).fork()).join();
@@ -2783,7 +2783,7 @@ function createBaseWithdrawLimitsRequest(): WithdrawLimitsRequest {
   return { accountId: "" };
 }
 
-export const WithdrawLimitsRequest: MessageFns<WithdrawLimitsRequest> = {
+export const WithdrawLimitsRequest: OperationsUtils.MessageFns<WithdrawLimitsRequest> = {
   encode(message: WithdrawLimitsRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -2841,7 +2841,7 @@ function createBaseWithdrawLimitsResponse(): WithdrawLimitsResponse {
   return { money: [], blocked: [], blockedGuarantee: [] };
 }
 
-export const WithdrawLimitsResponse: MessageFns<WithdrawLimitsResponse> = {
+export const WithdrawLimitsResponse: OperationsUtils.MessageFns<WithdrawLimitsResponse> = {
   encode(message: WithdrawLimitsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.money) {
       MoneyValue.encode(v!, writer.uint32(10).fork()).join();
@@ -2953,7 +2953,7 @@ function createBasePortfolioPosition(): PortfolioPosition {
   };
 }
 
-export const PortfolioPosition: MessageFns<PortfolioPosition> = {
+export const PortfolioPosition: OperationsUtils.MessageFns<PortfolioPosition> = {
   encode(message: PortfolioPosition, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.figi !== "") {
       writer.uint32(10).string(message.figi);
@@ -3314,7 +3314,7 @@ function createBaseVirtualPortfolioPosition(): VirtualPortfolioPosition {
   };
 }
 
-export const VirtualPortfolioPosition: MessageFns<VirtualPortfolioPosition> = {
+export const VirtualPortfolioPosition: OperationsUtils.MessageFns<VirtualPortfolioPosition> = {
   encode(message: VirtualPortfolioPosition, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.positionUid !== "") {
       writer.uint32(10).string(message.positionUid);
@@ -3577,7 +3577,7 @@ function createBasePositionsSecurities(): PositionsSecurities {
   };
 }
 
-export const PositionsSecurities: MessageFns<PositionsSecurities> = {
+export const PositionsSecurities: OperationsUtils.MessageFns<PositionsSecurities> = {
   encode(message: PositionsSecurities, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.figi !== "") {
       writer.uint32(10).string(message.figi);
@@ -3733,7 +3733,7 @@ function createBasePositionsFutures(): PositionsFutures {
   return { figi: "", blocked: 0, balance: 0, positionUid: "", instrumentUid: "" };
 }
 
-export const PositionsFutures: MessageFns<PositionsFutures> = {
+export const PositionsFutures: OperationsUtils.MessageFns<PositionsFutures> = {
   encode(message: PositionsFutures, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.figi !== "") {
       writer.uint32(10).string(message.figi);
@@ -3857,7 +3857,7 @@ function createBasePositionsOptions(): PositionsOptions {
   return { positionUid: "", instrumentUid: "", blocked: 0, balance: 0 };
 }
 
-export const PositionsOptions: MessageFns<PositionsOptions> = {
+export const PositionsOptions: OperationsUtils.MessageFns<PositionsOptions> = {
   encode(message: PositionsOptions, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.positionUid !== "") {
       writer.uint32(10).string(message.positionUid);
@@ -3965,7 +3965,7 @@ function createBaseBrokerReportRequest(): BrokerReportRequest {
   return { generateBrokerReportRequest: undefined, getBrokerReportRequest: undefined };
 }
 
-export const BrokerReportRequest: MessageFns<BrokerReportRequest> = {
+export const BrokerReportRequest: OperationsUtils.MessageFns<BrokerReportRequest> = {
   encode(message: BrokerReportRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.generateBrokerReportRequest !== undefined) {
       GenerateBrokerReportRequest.encode(message.generateBrokerReportRequest, writer.uint32(10).fork()).join();
@@ -4051,7 +4051,7 @@ function createBaseBrokerReportResponse(): BrokerReportResponse {
   return { generateBrokerReportResponse: undefined, getBrokerReportResponse: undefined };
 }
 
-export const BrokerReportResponse: MessageFns<BrokerReportResponse> = {
+export const BrokerReportResponse: OperationsUtils.MessageFns<BrokerReportResponse> = {
   encode(message: BrokerReportResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.generateBrokerReportResponse !== undefined) {
       GenerateBrokerReportResponse.encode(message.generateBrokerReportResponse, writer.uint32(10).fork()).join();
@@ -4137,7 +4137,7 @@ function createBaseGenerateBrokerReportRequest(): GenerateBrokerReportRequest {
   return { accountId: "", from: undefined, to: undefined };
 }
 
-export const GenerateBrokerReportRequest: MessageFns<GenerateBrokerReportRequest> = {
+export const GenerateBrokerReportRequest: OperationsUtils.MessageFns<GenerateBrokerReportRequest> = {
   encode(message: GenerateBrokerReportRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -4229,7 +4229,7 @@ function createBaseGenerateBrokerReportResponse(): GenerateBrokerReportResponse 
   return { taskId: "" };
 }
 
-export const GenerateBrokerReportResponse: MessageFns<GenerateBrokerReportResponse> = {
+export const GenerateBrokerReportResponse: OperationsUtils.MessageFns<GenerateBrokerReportResponse> = {
   encode(message: GenerateBrokerReportResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.taskId !== "") {
       writer.uint32(10).string(message.taskId);
@@ -4287,7 +4287,7 @@ function createBaseGetBrokerReportRequest(): GetBrokerReportRequest {
   return { taskId: "", page: undefined };
 }
 
-export const GetBrokerReportRequest: MessageFns<GetBrokerReportRequest> = {
+export const GetBrokerReportRequest: OperationsUtils.MessageFns<GetBrokerReportRequest> = {
   encode(message: GetBrokerReportRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.taskId !== "") {
       writer.uint32(10).string(message.taskId);
@@ -4363,7 +4363,7 @@ function createBaseGetBrokerReportResponse(): GetBrokerReportResponse {
   return { brokerReport: [], itemsCount: 0, pagesCount: 0, page: 0 };
 }
 
-export const GetBrokerReportResponse: MessageFns<GetBrokerReportResponse> = {
+export const GetBrokerReportResponse: OperationsUtils.MessageFns<GetBrokerReportResponse> = {
   encode(message: GetBrokerReportResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.brokerReport) {
       BrokerReport.encode(v!, writer.uint32(10).fork()).join();
@@ -4501,7 +4501,7 @@ function createBaseBrokerReport(): BrokerReport {
   };
 }
 
-export const BrokerReport: MessageFns<BrokerReport> = {
+export const BrokerReport: OperationsUtils.MessageFns<BrokerReport> = {
   encode(message: BrokerReport, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.tradeId !== "") {
       writer.uint32(10).string(message.tradeId);
@@ -4998,7 +4998,7 @@ function createBaseGetDividendsForeignIssuerRequest(): GetDividendsForeignIssuer
   return { generateDivForeignIssuerReport: undefined, getDivForeignIssuerReport: undefined };
 }
 
-export const GetDividendsForeignIssuerRequest: MessageFns<GetDividendsForeignIssuerRequest> = {
+export const GetDividendsForeignIssuerRequest: OperationsUtils.MessageFns<GetDividendsForeignIssuerRequest> = {
   encode(message: GetDividendsForeignIssuerRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.generateDivForeignIssuerReport !== undefined) {
       GenerateDividendsForeignIssuerReportRequest.encode(
@@ -5092,7 +5092,7 @@ function createBaseGetDividendsForeignIssuerResponse(): GetDividendsForeignIssue
   return { generateDivForeignIssuerReportResponse: undefined, divForeignIssuerReport: undefined };
 }
 
-export const GetDividendsForeignIssuerResponse: MessageFns<GetDividendsForeignIssuerResponse> = {
+export const GetDividendsForeignIssuerResponse: OperationsUtils.MessageFns<GetDividendsForeignIssuerResponse> = {
   encode(message: GetDividendsForeignIssuerResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.generateDivForeignIssuerReportResponse !== undefined) {
       GenerateDividendsForeignIssuerReportResponse.encode(
@@ -5187,7 +5187,7 @@ function createBaseGenerateDividendsForeignIssuerReportRequest(): GenerateDivide
   return { accountId: "", from: undefined, to: undefined };
 }
 
-export const GenerateDividendsForeignIssuerReportRequest: MessageFns<GenerateDividendsForeignIssuerReportRequest> = {
+export const GenerateDividendsForeignIssuerReportRequest: OperationsUtils.MessageFns<GenerateDividendsForeignIssuerReportRequest> = {
   encode(
     message: GenerateDividendsForeignIssuerReportRequest,
     writer: BinaryWriter = new BinaryWriter(),
@@ -5284,7 +5284,7 @@ function createBaseGetDividendsForeignIssuerReportRequest(): GetDividendsForeign
   return { taskId: "", page: undefined };
 }
 
-export const GetDividendsForeignIssuerReportRequest: MessageFns<GetDividendsForeignIssuerReportRequest> = {
+export const GetDividendsForeignIssuerReportRequest: OperationsUtils.MessageFns<GetDividendsForeignIssuerReportRequest> = {
   encode(message: GetDividendsForeignIssuerReportRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.taskId !== "") {
       writer.uint32(10).string(message.taskId);
@@ -5360,7 +5360,7 @@ function createBaseGenerateDividendsForeignIssuerReportResponse(): GenerateDivid
   return { taskId: "" };
 }
 
-export const GenerateDividendsForeignIssuerReportResponse: MessageFns<GenerateDividendsForeignIssuerReportResponse> = {
+export const GenerateDividendsForeignIssuerReportResponse: OperationsUtils.MessageFns<GenerateDividendsForeignIssuerReportResponse> = {
   encode(
     message: GenerateDividendsForeignIssuerReportResponse,
     writer: BinaryWriter = new BinaryWriter(),
@@ -5425,7 +5425,7 @@ function createBaseGetDividendsForeignIssuerReportResponse(): GetDividendsForeig
   return { dividendsForeignIssuerReport: [], itemsCount: 0, pagesCount: 0, page: 0 };
 }
 
-export const GetDividendsForeignIssuerReportResponse: MessageFns<GetDividendsForeignIssuerReportResponse> = {
+export const GetDividendsForeignIssuerReportResponse: OperationsUtils.MessageFns<GetDividendsForeignIssuerReportResponse> = {
   encode(message: GetDividendsForeignIssuerReportResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.dividendsForeignIssuerReport) {
       DividendsForeignIssuerReport.encode(v!, writer.uint32(10).fork()).join();
@@ -5551,7 +5551,7 @@ function createBaseDividendsForeignIssuerReport(): DividendsForeignIssuerReport 
   };
 }
 
-export const DividendsForeignIssuerReport: MessageFns<DividendsForeignIssuerReport> = {
+export const DividendsForeignIssuerReport: OperationsUtils.MessageFns<DividendsForeignIssuerReport> = {
   encode(message: DividendsForeignIssuerReport, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.recordDate !== undefined) {
       Timestamp.encode(toTimestamp(message.recordDate), writer.uint32(10).fork()).join();
@@ -5795,7 +5795,7 @@ function createBasePortfolioStreamRequest(): PortfolioStreamRequest {
   return { accounts: [], pingSettings: undefined };
 }
 
-export const PortfolioStreamRequest: MessageFns<PortfolioStreamRequest> = {
+export const PortfolioStreamRequest: OperationsUtils.MessageFns<PortfolioStreamRequest> = {
   encode(message: PortfolioStreamRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.accounts) {
       writer.uint32(10).string(v!);
@@ -5873,7 +5873,7 @@ function createBasePortfolioStreamResponse(): PortfolioStreamResponse {
   return { subscriptions: undefined, portfolio: undefined, ping: undefined };
 }
 
-export const PortfolioStreamResponse: MessageFns<PortfolioStreamResponse> = {
+export const PortfolioStreamResponse: OperationsUtils.MessageFns<PortfolioStreamResponse> = {
   encode(message: PortfolioStreamResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.subscriptions !== undefined) {
       PortfolioSubscriptionResult.encode(message.subscriptions, writer.uint32(10).fork()).join();
@@ -5971,7 +5971,7 @@ function createBasePortfolioSubscriptionResult(): PortfolioSubscriptionResult {
   return { accounts: [], trackingId: "", streamId: "" };
 }
 
-export const PortfolioSubscriptionResult: MessageFns<PortfolioSubscriptionResult> = {
+export const PortfolioSubscriptionResult: OperationsUtils.MessageFns<PortfolioSubscriptionResult> = {
   encode(message: PortfolioSubscriptionResult, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.accounts) {
       AccountSubscriptionStatus.encode(v!, writer.uint32(10).fork()).join();
@@ -6065,7 +6065,7 @@ function createBaseAccountSubscriptionStatus(): AccountSubscriptionStatus {
   return { accountId: "", subscriptionStatus: 0 };
 }
 
-export const AccountSubscriptionStatus: MessageFns<AccountSubscriptionStatus> = {
+export const AccountSubscriptionStatus: OperationsUtils.MessageFns<AccountSubscriptionStatus> = {
   encode(message: AccountSubscriptionStatus, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -6155,7 +6155,7 @@ function createBaseGetOperationsByCursorRequest(): GetOperationsByCursorRequest 
   };
 }
 
-export const GetOperationsByCursorRequest: MessageFns<GetOperationsByCursorRequest> = {
+export const GetOperationsByCursorRequest: OperationsUtils.MessageFns<GetOperationsByCursorRequest> = {
   encode(message: GetOperationsByCursorRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -6389,7 +6389,7 @@ function createBaseGetOperationsByCursorResponse(): GetOperationsByCursorRespons
   return { hasNext: false, nextCursor: "", items: [] };
 }
 
-export const GetOperationsByCursorResponse: MessageFns<GetOperationsByCursorResponse> = {
+export const GetOperationsByCursorResponse: OperationsUtils.MessageFns<GetOperationsByCursorResponse> = {
   encode(message: GetOperationsByCursorResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.hasNext !== false) {
       writer.uint32(8).bool(message.hasNext);
@@ -6510,7 +6510,7 @@ function createBaseOperationItem(): OperationItem {
   };
 }
 
-export const OperationItem: MessageFns<OperationItem> = {
+export const OperationItem: OperationsUtils.MessageFns<OperationItem> = {
   encode(message: OperationItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.cursor !== "") {
       writer.uint32(10).string(message.cursor);
@@ -7018,7 +7018,7 @@ function createBaseOperationItemTrades(): OperationItemTrades {
   return { trades: [] };
 }
 
-export const OperationItemTrades: MessageFns<OperationItemTrades> = {
+export const OperationItemTrades: OperationsUtils.MessageFns<OperationItemTrades> = {
   encode(message: OperationItemTrades, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.trades) {
       OperationItemTrade.encode(v!, writer.uint32(50).fork()).join();
@@ -7080,7 +7080,7 @@ function createBaseOperationItemTrade(): OperationItemTrade {
   return { num: "", date: undefined, quantity: 0, price: undefined, yield: undefined, yieldRelative: undefined };
 }
 
-export const OperationItemTrade: MessageFns<OperationItemTrade> = {
+export const OperationItemTrade: OperationsUtils.MessageFns<OperationItemTrade> = {
   encode(message: OperationItemTrade, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.num !== "") {
       writer.uint32(10).string(message.num);
@@ -7226,7 +7226,7 @@ function createBasePositionsStreamRequest(): PositionsStreamRequest {
   return { accounts: [], withInitialPositions: false, pingSettings: undefined };
 }
 
-export const PositionsStreamRequest: MessageFns<PositionsStreamRequest> = {
+export const PositionsStreamRequest: OperationsUtils.MessageFns<PositionsStreamRequest> = {
   encode(message: PositionsStreamRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.accounts) {
       writer.uint32(10).string(v!);
@@ -7322,7 +7322,7 @@ function createBasePositionsStreamResponse(): PositionsStreamResponse {
   return { subscriptions: undefined, position: undefined, ping: undefined, initialPositions: undefined };
 }
 
-export const PositionsStreamResponse: MessageFns<PositionsStreamResponse> = {
+export const PositionsStreamResponse: OperationsUtils.MessageFns<PositionsStreamResponse> = {
   encode(message: PositionsStreamResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.subscriptions !== undefined) {
       PositionsSubscriptionResult.encode(message.subscriptions, writer.uint32(10).fork()).join();
@@ -7440,7 +7440,7 @@ function createBasePositionsSubscriptionResult(): PositionsSubscriptionResult {
   return { accounts: [], trackingId: "", streamId: "" };
 }
 
-export const PositionsSubscriptionResult: MessageFns<PositionsSubscriptionResult> = {
+export const PositionsSubscriptionResult: OperationsUtils.MessageFns<PositionsSubscriptionResult> = {
   encode(message: PositionsSubscriptionResult, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.accounts) {
       PositionsSubscriptionStatus.encode(v!, writer.uint32(10).fork()).join();
@@ -7534,7 +7534,7 @@ function createBasePositionsSubscriptionStatus(): PositionsSubscriptionStatus {
   return { accountId: "", subscriptionStatus: 0 };
 }
 
-export const PositionsSubscriptionStatus: MessageFns<PositionsSubscriptionStatus> = {
+export const PositionsSubscriptionStatus: OperationsUtils.MessageFns<PositionsSubscriptionStatus> = {
   encode(message: PositionsSubscriptionStatus, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -7612,7 +7612,7 @@ function createBasePositionData(): PositionData {
   return { accountId: "", money: [], securities: [], futures: [], options: [], date: undefined };
 }
 
-export const PositionData: MessageFns<PositionData> = {
+export const PositionData: OperationsUtils.MessageFns<PositionData> = {
   encode(message: PositionData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -7758,7 +7758,7 @@ function createBasePositionsMoney(): PositionsMoney {
   return { availableValue: undefined, blockedValue: undefined };
 }
 
-export const PositionsMoney: MessageFns<PositionsMoney> = {
+export const PositionsMoney: OperationsUtils.MessageFns<PositionsMoney> = {
   encode(message: PositionsMoney, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.availableValue !== undefined) {
       MoneyValue.encode(message.availableValue, writer.uint32(10).fork()).join();
@@ -7838,7 +7838,7 @@ function createBaseChildOperationItem(): ChildOperationItem {
   return { instrumentUid: "", payment: undefined };
 }
 
-export const ChildOperationItem: MessageFns<ChildOperationItem> = {
+export const ChildOperationItem: OperationsUtils.MessageFns<ChildOperationItem> = {
   encode(message: ChildOperationItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.instrumentUid !== "") {
       writer.uint32(10).string(message.instrumentUid);
@@ -8181,11 +8181,22 @@ function isSet(value: any): boolean {
 
 type ServerStreamingMethodResult<Response> = { [Symbol.asyncIterator](): AsyncIterator<Response, void> };
 
-interface MessageFns<T> {
-  encode(message: T, writer?: BinaryWriter): BinaryWriter;
-  decode(input: BinaryReader | Uint8Array, length?: number): T;
-  fromJSON(object: any): T;
-  toJSON(message: T): unknown;
-  create(base?: DeepPartial<T>): T;
-  fromPartial(object: DeepPartial<T>): T;
+// interface MessageFns<T> {
+//   encode(message: T, writer?: BinaryWriter): BinaryWriter;
+//   decode(input: BinaryReader | Uint8Array, length?: number): T;
+//   fromJSON(object: any): T;
+//   toJSON(message: T): unknown;
+//   create(base?: DeepPartial<T>): T;
+//   fromPartial(object: DeepPartial<T>): T;
+// }
+
+export declare namespace OperationsUtils {
+  export interface MessageFns<T> {
+    encode(message: T, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): T;
+    fromJSON(object: any): T;
+    toJSON(message: T): unknown;
+    create(base?: DeepPartial<T>): T;
+    fromPartial(object: DeepPartial<T>): T;
+  }
 }

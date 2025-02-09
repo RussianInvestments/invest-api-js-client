@@ -75,16 +75,6 @@ function createBaseOpenSandboxAccountRequest(): OpenSandboxAccountRequest {
   return { name: undefined };
 }
 
-interface MessageFns<T> {
-  encode(message: T, writer?: BinaryWriter): BinaryWriter;
-  decode(input: BinaryReader | Uint8Array, length?: number): T;
-  fromJSON(object: any): T;
-  toJSON(message: T): unknown;
-  create(base?: DeepPartial<T>): T;
-  fromPartial(object: DeepPartial<T>): T;
-}
-
-
 export const OpenSandboxAccountRequest: MessageFns<OpenSandboxAccountRequest> = {
   encode(message: OpenSandboxAccountRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.name !== undefined) {
@@ -748,3 +738,11 @@ function isSet(value: any): boolean {
   return value !== null && value !== undefined;
 }
 
+interface MessageFns<T> {
+  encode(message: T, writer?: BinaryWriter): BinaryWriter;
+  decode(input: BinaryReader | Uint8Array, length?: number): T;
+  fromJSON(object: any): T;
+  toJSON(message: T): unknown;
+  create(base?: DeepPartial<T>): T;
+  fromPartial(object: DeepPartial<T>): T;
+}

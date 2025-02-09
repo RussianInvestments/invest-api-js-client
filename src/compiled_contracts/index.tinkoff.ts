@@ -5,4 +5,4 @@
 
 /* eslint-disable */
 
-export * as public_ from "./index.tinkoff.public";
+export * as tpublic from "./index.tinkoff.public";

@@ -986,7 +986,7 @@ function createBaseTradesStreamRequest(): TradesStreamRequest {
   return { accounts: [], pingDelayMs: undefined };
 }
 
-export const TradesStreamRequest: MessageFns<TradesStreamRequest> = {
+export const TradesStreamRequest: OrdersUtils.MessageFns<TradesStreamRequest> = {
   encode(message: TradesStreamRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.accounts) {
       writer.uint32(10).string(v!);
@@ -1062,7 +1062,7 @@ function createBaseTradesStreamResponse(): TradesStreamResponse {
   return { orderTrades: undefined, ping: undefined, subscription: undefined };
 }
 
-export const TradesStreamResponse: MessageFns<TradesStreamResponse> = {
+export const TradesStreamResponse: OrdersUtils.MessageFns<TradesStreamResponse> = {
   encode(message: TradesStreamResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.orderTrades !== undefined) {
       OrderTrades.encode(message.orderTrades, writer.uint32(10).fork()).join();
@@ -1158,7 +1158,7 @@ function createBaseOrderTrades(): OrderTrades {
   return { orderId: "", createdAt: undefined, direction: 0, figi: "", trades: [], accountId: "", instrumentUid: "" };
 }
 
-export const OrderTrades: MessageFns<OrderTrades> = {
+export const OrderTrades: OrdersUtils.MessageFns<OrderTrades> = {
   encode(message: OrderTrades, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.orderId !== "") {
       writer.uint32(10).string(message.orderId);
@@ -1314,7 +1314,7 @@ function createBaseOrderTrade(): OrderTrade {
   return { dateTime: undefined, price: undefined, quantity: 0, tradeId: "" };
 }
 
-export const OrderTrade: MessageFns<OrderTrade> = {
+export const OrderTrade: OrdersUtils.MessageFns<OrderTrade> = {
   encode(message: OrderTrade, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.dateTime !== undefined) {
       Timestamp.encode(toTimestamp(message.dateTime), writer.uint32(10).fork()).join();
@@ -1435,7 +1435,7 @@ function createBasePostOrderRequest(): PostOrderRequest {
   };
 }
 
-export const PostOrderRequest: MessageFns<PostOrderRequest> = {
+export const PostOrderRequest: OrdersUtils.MessageFns<PostOrderRequest> = {
   encode(message: PostOrderRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.figi !== undefined) {
       writer.uint32(10).string(message.figi);
@@ -1661,7 +1661,7 @@ function createBasePostOrderResponse(): PostOrderResponse {
   };
 }
 
-export const PostOrderResponse: MessageFns<PostOrderResponse> = {
+export const PostOrderResponse: OrdersUtils.MessageFns<PostOrderResponse> = {
   encode(message: PostOrderResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.orderId !== "") {
       writer.uint32(10).string(message.orderId);
@@ -2043,7 +2043,7 @@ function createBasePostOrderAsyncRequest(): PostOrderAsyncRequest {
   };
 }
 
-export const PostOrderAsyncRequest: MessageFns<PostOrderAsyncRequest> = {
+export const PostOrderAsyncRequest: OrdersUtils.MessageFns<PostOrderAsyncRequest> = {
   encode(message: PostOrderAsyncRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.instrumentId !== "") {
       writer.uint32(10).string(message.instrumentId);
@@ -2233,7 +2233,7 @@ function createBasePostOrderAsyncResponse(): PostOrderAsyncResponse {
   return { orderRequestId: "", executionReportStatus: 0, tradeIntentId: undefined };
 }
 
-export const PostOrderAsyncResponse: MessageFns<PostOrderAsyncResponse> = {
+export const PostOrderAsyncResponse: OrdersUtils.MessageFns<PostOrderAsyncResponse> = {
   encode(message: PostOrderAsyncResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.orderRequestId !== "") {
       writer.uint32(10).string(message.orderRequestId);
@@ -2327,7 +2327,7 @@ function createBaseCancelOrderRequest(): CancelOrderRequest {
   return { accountId: "", orderId: "", orderIdType: undefined };
 }
 
-export const CancelOrderRequest: MessageFns<CancelOrderRequest> = {
+export const CancelOrderRequest: OrdersUtils.MessageFns<CancelOrderRequest> = {
   encode(message: CancelOrderRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -2419,7 +2419,7 @@ function createBaseCancelOrderResponse(): CancelOrderResponse {
   return { time: undefined, responseMetadata: undefined };
 }
 
-export const CancelOrderResponse: MessageFns<CancelOrderResponse> = {
+export const CancelOrderResponse: OrdersUtils.MessageFns<CancelOrderResponse> = {
   encode(message: CancelOrderResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.time !== undefined) {
       Timestamp.encode(toTimestamp(message.time), writer.uint32(10).fork()).join();
@@ -2497,7 +2497,7 @@ function createBaseGetOrderStateRequest(): GetOrderStateRequest {
   return { accountId: "", orderId: "", priceType: 0, orderIdType: undefined };
 }
 
-export const GetOrderStateRequest: MessageFns<GetOrderStateRequest> = {
+export const GetOrderStateRequest: OrdersUtils.MessageFns<GetOrderStateRequest> = {
   encode(message: GetOrderStateRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -2605,7 +2605,7 @@ function createBaseGetOrdersRequest(): GetOrdersRequest {
   return { accountId: "" };
 }
 
-export const GetOrdersRequest: MessageFns<GetOrdersRequest> = {
+export const GetOrdersRequest: OrdersUtils.MessageFns<GetOrdersRequest> = {
   encode(message: GetOrdersRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -2663,7 +2663,7 @@ function createBaseGetOrdersResponse(): GetOrdersResponse {
   return { orders: [] };
 }
 
-export const GetOrdersResponse: MessageFns<GetOrdersResponse> = {
+export const GetOrdersResponse: OrdersUtils.MessageFns<GetOrdersResponse> = {
   encode(message: GetOrdersResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.orders) {
       OrderState.encode(v!, writer.uint32(10).fork()).join();
@@ -2744,7 +2744,7 @@ function createBaseOrderState(): OrderState {
   };
 }
 
-export const OrderState: MessageFns<OrderState> = {
+export const OrderState: OrdersUtils.MessageFns<OrderState> = {
   encode(message: OrderState, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.orderId !== "") {
       writer.uint32(10).string(message.orderId);
@@ -3130,7 +3130,7 @@ function createBaseOrderStage(): OrderStage {
   return { price: undefined, quantity: 0, tradeId: "", executionTime: undefined };
 }
 
-export const OrderStage: MessageFns<OrderStage> = {
+export const OrderStage: OrdersUtils.MessageFns<OrderStage> = {
   encode(message: OrderStage, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.price !== undefined) {
       MoneyValue.encode(message.price, writer.uint32(10).fork()).join();
@@ -3240,7 +3240,7 @@ function createBaseReplaceOrderRequest(): ReplaceOrderRequest {
   return { accountId: "", orderId: "", idempotencyKey: "", quantity: 0, price: undefined, priceType: undefined };
 }
 
-export const ReplaceOrderRequest: MessageFns<ReplaceOrderRequest> = {
+export const ReplaceOrderRequest: OrdersUtils.MessageFns<ReplaceOrderRequest> = {
   encode(message: ReplaceOrderRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -3382,7 +3382,7 @@ function createBaseGetMaxLotsRequest(): GetMaxLotsRequest {
   return { accountId: "", instrumentId: "", price: undefined };
 }
 
-export const GetMaxLotsRequest: MessageFns<GetMaxLotsRequest> = {
+export const GetMaxLotsRequest: OrdersUtils.MessageFns<GetMaxLotsRequest> = {
   encode(message: GetMaxLotsRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -3482,7 +3482,7 @@ function createBaseGetMaxLotsResponse(): GetMaxLotsResponse {
   };
 }
 
-export const GetMaxLotsResponse: MessageFns<GetMaxLotsResponse> = {
+export const GetMaxLotsResponse: OrdersUtils.MessageFns<GetMaxLotsResponse> = {
   encode(message: GetMaxLotsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.currency !== "") {
       writer.uint32(10).string(message.currency);
@@ -3618,7 +3618,7 @@ function createBaseGetMaxLotsResponse_BuyLimitsView(): GetMaxLotsResponse_BuyLim
   return { buyMoneyAmount: undefined, buyMaxLots: 0, buyMaxMarketLots: 0 };
 }
 
-export const GetMaxLotsResponse_BuyLimitsView: MessageFns<GetMaxLotsResponse_BuyLimitsView> = {
+export const GetMaxLotsResponse_BuyLimitsView: OrdersUtils.MessageFns<GetMaxLotsResponse_BuyLimitsView> = {
   encode(message: GetMaxLotsResponse_BuyLimitsView, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.buyMoneyAmount !== undefined) {
       Quotation.encode(message.buyMoneyAmount, writer.uint32(10).fork()).join();
@@ -3712,7 +3712,7 @@ function createBaseGetMaxLotsResponse_SellLimitsView(): GetMaxLotsResponse_SellL
   return { sellMaxLots: 0 };
 }
 
-export const GetMaxLotsResponse_SellLimitsView: MessageFns<GetMaxLotsResponse_SellLimitsView> = {
+export const GetMaxLotsResponse_SellLimitsView: OrdersUtils.MessageFns<GetMaxLotsResponse_SellLimitsView> = {
   encode(message: GetMaxLotsResponse_SellLimitsView, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.sellMaxLots !== 0) {
       writer.uint32(8).int64(message.sellMaxLots);
@@ -3770,7 +3770,7 @@ function createBaseGetOrderPriceRequest(): GetOrderPriceRequest {
   return { accountId: "", instrumentId: "", price: undefined, direction: 0, quantity: 0 };
 }
 
-export const GetOrderPriceRequest: MessageFns<GetOrderPriceRequest> = {
+export const GetOrderPriceRequest: OrdersUtils.MessageFns<GetOrderPriceRequest> = {
   encode(message: GetOrderPriceRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -3906,7 +3906,7 @@ function createBaseGetOrderPriceResponse(): GetOrderPriceResponse {
   };
 }
 
-export const GetOrderPriceResponse: MessageFns<GetOrderPriceResponse> = {
+export const GetOrderPriceResponse: OrdersUtils.MessageFns<GetOrderPriceResponse> = {
   encode(message: GetOrderPriceResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.totalOrderAmount !== undefined) {
       MoneyValue.encode(message.totalOrderAmount, writer.uint32(10).fork()).join();
@@ -4115,7 +4115,7 @@ function createBaseGetOrderPriceResponse_ExtraBond(): GetOrderPriceResponse_Extr
   return { aciValue: undefined, nominalConversionRate: undefined };
 }
 
-export const GetOrderPriceResponse_ExtraBond: MessageFns<GetOrderPriceResponse_ExtraBond> = {
+export const GetOrderPriceResponse_ExtraBond: OrdersUtils.MessageFns<GetOrderPriceResponse_ExtraBond> = {
   encode(message: GetOrderPriceResponse_ExtraBond, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.aciValue !== undefined) {
       MoneyValue.encode(message.aciValue, writer.uint32(18).fork()).join();
@@ -4198,7 +4198,7 @@ function createBaseGetOrderPriceResponse_ExtraFuture(): GetOrderPriceResponse_Ex
   return { initialMargin: undefined };
 }
 
-export const GetOrderPriceResponse_ExtraFuture: MessageFns<GetOrderPriceResponse_ExtraFuture> = {
+export const GetOrderPriceResponse_ExtraFuture: OrdersUtils.MessageFns<GetOrderPriceResponse_ExtraFuture> = {
   encode(message: GetOrderPriceResponse_ExtraFuture, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.initialMargin !== undefined) {
       MoneyValue.encode(message.initialMargin, writer.uint32(18).fork()).join();
@@ -4258,7 +4258,7 @@ function createBaseOrderStateStreamRequest(): OrderStateStreamRequest {
   return { accounts: [], pingDelayMs: undefined };
 }
 
-export const OrderStateStreamRequest: MessageFns<OrderStateStreamRequest> = {
+export const OrderStateStreamRequest: OrdersUtils.MessageFns<OrderStateStreamRequest> = {
   encode(message: OrderStateStreamRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.accounts) {
       writer.uint32(10).string(v!);
@@ -4334,7 +4334,7 @@ function createBaseSubscriptionResponse(): SubscriptionResponse {
   return { trackingId: "", status: 0, streamId: "", accounts: [], error: undefined };
 }
 
-export const SubscriptionResponse: MessageFns<SubscriptionResponse> = {
+export const SubscriptionResponse: OrdersUtils.MessageFns<SubscriptionResponse> = {
   encode(message: SubscriptionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.trackingId !== "") {
       writer.uint32(10).string(message.trackingId);
@@ -4460,7 +4460,7 @@ function createBaseOrderStateStreamResponse(): OrderStateStreamResponse {
   return { orderState: undefined, ping: undefined, subscription: undefined };
 }
 
-export const OrderStateStreamResponse: MessageFns<OrderStateStreamResponse> = {
+export const OrderStateStreamResponse: OrdersUtils.MessageFns<OrderStateStreamResponse> = {
   encode(message: OrderStateStreamResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.orderState !== undefined) {
       OrderStateStreamResponse_OrderState.encode(message.orderState, writer.uint32(10).fork()).join();
@@ -4586,7 +4586,7 @@ function createBaseOrderStateStreamResponse_OrderState(): OrderStateStreamRespon
   };
 }
 
-export const OrderStateStreamResponse_OrderState: MessageFns<OrderStateStreamResponse_OrderState> = {
+export const OrderStateStreamResponse_OrderState: OrdersUtils.MessageFns<OrderStateStreamResponse_OrderState> = {
   encode(message: OrderStateStreamResponse_OrderState, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.orderId !== "") {
       writer.uint32(10).string(message.orderId);
@@ -5325,11 +5325,13 @@ function isSet(value: any): boolean {
 
 type ServerStreamingMethodResult<Response> = { [Symbol.asyncIterator](): AsyncIterator<Response, void> };
 
-interface MessageFns<T> {
+export declare namespace OrdersUtils {
+ export interface MessageFns<T> {
   encode(message: T, writer?: BinaryWriter): BinaryWriter;
   decode(input: BinaryReader | Uint8Array, length?: number): T;
   fromJSON(object: any): T;
   toJSON(message: T): unknown;
   create(base?: DeepPartial<T>): T;
   fromPartial(object: DeepPartial<T>): T;
+}
 }

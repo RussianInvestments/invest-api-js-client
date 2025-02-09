@@ -290,7 +290,7 @@ function createBaseGetAccountsRequest(): GetAccountsRequest {
   return { status: undefined };
 }
 
-export const GetAccountsRequest: MessageFns<GetAccountsRequest> = {
+export const GetAccountsRequest: UsersUtils.MessageFns<GetAccountsRequest> = {
   encode(message: GetAccountsRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.status !== undefined) {
       writer.uint32(8).int32(message.status);
@@ -348,7 +348,7 @@ function createBaseGetAccountsResponse(): GetAccountsResponse {
   return { accounts: [] };
 }
 
-export const GetAccountsResponse: MessageFns<GetAccountsResponse> = {
+export const GetAccountsResponse: UsersUtils.MessageFns<GetAccountsResponse> = {
   encode(message: GetAccountsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.accounts) {
       Account.encode(v!, writer.uint32(10).fork()).join();
@@ -408,7 +408,7 @@ function createBaseAccount(): Account {
   return { id: "", type: 0, name: "", status: 0, openedDate: undefined, closedDate: undefined, accessLevel: 0 };
 }
 
-export const Account: MessageFns<Account> = {
+export const Account: UsersUtils.MessageFns<Account> = {
   encode(message: Account, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -564,7 +564,7 @@ function createBaseGetMarginAttributesRequest(): GetMarginAttributesRequest {
   return { accountId: "" };
 }
 
-export const GetMarginAttributesRequest: MessageFns<GetMarginAttributesRequest> = {
+export const GetMarginAttributesRequest: UsersUtils.MessageFns<GetMarginAttributesRequest> = {
   encode(message: GetMarginAttributesRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.accountId !== "") {
       writer.uint32(10).string(message.accountId);
@@ -629,7 +629,7 @@ function createBaseGetMarginAttributesResponse(): GetMarginAttributesResponse {
   };
 }
 
-export const GetMarginAttributesResponse: MessageFns<GetMarginAttributesResponse> = {
+export const GetMarginAttributesResponse: UsersUtils.MessageFns<GetMarginAttributesResponse> = {
   encode(message: GetMarginAttributesResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.liquidPortfolio !== undefined) {
       MoneyValue.encode(message.liquidPortfolio, writer.uint32(10).fork()).join();
@@ -786,7 +786,7 @@ function createBaseGetUserTariffRequest(): GetUserTariffRequest {
   return {};
 }
 
-export const GetUserTariffRequest: MessageFns<GetUserTariffRequest> = {
+export const GetUserTariffRequest: UsersUtils.MessageFns<GetUserTariffRequest> = {
   encode(_: GetUserTariffRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     return writer;
   },
@@ -829,7 +829,7 @@ function createBaseGetUserTariffResponse(): GetUserTariffResponse {
   return { unaryLimits: [], streamLimits: [] };
 }
 
-export const GetUserTariffResponse: MessageFns<GetUserTariffResponse> = {
+export const GetUserTariffResponse: UsersUtils.MessageFns<GetUserTariffResponse> = {
   encode(message: GetUserTariffResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.unaryLimits) {
       UnaryLimit.encode(v!, writer.uint32(10).fork()).join();
@@ -909,7 +909,7 @@ function createBaseUnaryLimit(): UnaryLimit {
   return { limitPerMinute: 0, methods: [] };
 }
 
-export const UnaryLimit: MessageFns<UnaryLimit> = {
+export const UnaryLimit: UsersUtils.MessageFns<UnaryLimit> = {
   encode(message: UnaryLimit, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.limitPerMinute !== 0) {
       writer.uint32(8).int32(message.limitPerMinute);
@@ -985,7 +985,7 @@ function createBaseStreamLimit(): StreamLimit {
   return { limit: 0, streams: [], open: 0 };
 }
 
-export const StreamLimit: MessageFns<StreamLimit> = {
+export const StreamLimit: UsersUtils.MessageFns<StreamLimit> = {
   encode(message: StreamLimit, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.limit !== 0) {
       writer.uint32(8).int32(message.limit);
@@ -1077,7 +1077,7 @@ function createBaseGetInfoRequest(): GetInfoRequest {
   return {};
 }
 
-export const GetInfoRequest: MessageFns<GetInfoRequest> = {
+export const GetInfoRequest: UsersUtils.MessageFns<GetInfoRequest> = {
   encode(_: GetInfoRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     return writer;
   },
@@ -1120,7 +1120,7 @@ function createBaseGetInfoResponse(): GetInfoResponse {
   return { premStatus: false, qualStatus: false, qualifiedForWorkWith: [], tariff: "" };
 }
 
-export const GetInfoResponse: MessageFns<GetInfoResponse> = {
+export const GetInfoResponse: UsersUtils.MessageFns<GetInfoResponse> = {
   encode(message: GetInfoResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.premStatus !== false) {
       writer.uint32(8).bool(message.premStatus);
@@ -1348,11 +1348,13 @@ function isSet(value: any): boolean {
   return value !== null && value !== undefined;
 }
 
-interface MessageFns<T> {
+export declare namespace UsersUtils {
+ export interface MessageFns<T> {
   encode(message: T, writer?: BinaryWriter): BinaryWriter;
   decode(input: BinaryReader | Uint8Array, length?: number): T;
   fromJSON(object: any): T;
   toJSON(message: T): unknown;
   create(base?: DeepPartial<T>): T;
   fromPartial(object: DeepPartial<T>): T;
+}
 }

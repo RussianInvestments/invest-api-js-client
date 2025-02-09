@@ -4,3 +4,5 @@
   --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false,exportCommonSymbols=false,outputIndex=true,esModuleInterop=true \
   --proto_path=./investAPI/src/docs/contracts/ \
   ./investAPI/src/docs/contracts/*.proto
+
+sh ./tools/fix_export_ts.sh

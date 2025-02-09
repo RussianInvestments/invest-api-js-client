@@ -1348,7 +1348,7 @@ function isSet(value: any): boolean {
   return value !== null && value !== undefined;
 }
 
-interface MessageFns<T> {
+export interface MessageFns<T> {
   encode(message: T, writer?: BinaryWriter): BinaryWriter;
   decode(input: BinaryReader | Uint8Array, length?: number): T;
   fromJSON(object: any): T;

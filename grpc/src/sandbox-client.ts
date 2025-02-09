@@ -22,6 +22,10 @@ import {
     MarketDataStreamServiceDefinition
 } from './api/marketdata';
 import {
+    SandboxServiceClient,
+    SandboxServiceDefinition
+} from './api/sandbox'
+import {
     StopOrdersServiceClient,
     StopOrdersServiceDefinition
 } from './api/stoporders';
@@ -40,7 +44,7 @@ interface TTechAPIClientOptions {
 
 
 
-class TTechApiClient {
+class TTechSandboxApiClient {
 
     instruments: InstrumentsServiceClient;
     ordersStream: OrdersStreamServiceClient;
@@ -52,10 +56,11 @@ class TTechApiClient {
     stopOrders: StopOrdersServiceClient;
     users: UsersServiceClient;
 
+    sandbox: SandboxServiceClient;
 
     constructor(config: TTechAPIClientOptions) {
         var token = config.token;
-        var url = config.url || 'https://invest-public-api.tinkoff.ru';
+        var url = config.url || 'https://sandbox-invest-public-api.tinkoff.ru';
 
         const providedMetadata = config.metadata || {}
 
@@ -63,7 +68,8 @@ class TTechApiClient {
             .use((call, options) =>
                 call.next(call.request, {
                     ...options,
-                    metadata: Metadata(options.metadata).set(
+                    metadata: Metadata(options.metadata)
+                    .set(
                         'Authorization',
                         `Bearer ${token}`,
                     ),
@@ -108,8 +114,14 @@ class TTechApiClient {
             UsersServiceDefinition,
             channel
         );
+
+        this.sandbox = clientFactory.create(
+            SandboxServiceDefinition,
+            channel
+        );
+
     }
 
 }
 
-export { TTechApiClient }
+export { TTechSandboxApiClient }
