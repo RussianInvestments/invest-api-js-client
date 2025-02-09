@@ -21,8 +21,6 @@ import {
 } from "./common";
 import { Timestamp } from "./google/protobuf/timestamp";
 
-export const protobufPackage = "tinkoff.public.invest.api.contract.v1";
-
 /** Тип операции со списком подписок. */
 export enum SubscriptionAction {
   /** SUBSCRIPTION_ACTION_UNSPECIFIED - Статус подписки не определён. */
@@ -8025,7 +8023,7 @@ export interface MarketDataStreamServiceClient<CallOptionsExt = {}> {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
+type DeepPartial<T> = T extends Builtin ? T
   : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
@@ -8068,9 +8066,9 @@ function isSet(value: any): boolean {
   return value !== null && value !== undefined;
 }
 
-export type ServerStreamingMethodResult<Response> = { [Symbol.asyncIterator](): AsyncIterator<Response, void> };
+type ServerStreamingMethodResult<Response> = { [Symbol.asyncIterator](): AsyncIterator<Response, void> };
 
-export interface MessageFns<T> {
+interface MessageFns<T> {
   encode(message: T, writer?: BinaryWriter): BinaryWriter;
   decode(input: BinaryReader | Uint8Array, length?: number): T;
   fromJSON(object: any): T;

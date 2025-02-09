@@ -10,8 +10,6 @@ import { type CallContext, type CallOptions } from "nice-grpc-common";
 import { MoneyValue, Quotation } from "./common";
 import { Timestamp } from "./google/protobuf/timestamp";
 
-export const protobufPackage = "tinkoff.public.invest.api.contract.v1";
-
 /** Тип счёта. */
 export enum AccountType {
   /** ACCOUNT_TYPE_UNSPECIFIED - Тип аккаунта не определён. */
@@ -1318,7 +1316,7 @@ export interface UsersServiceClient<CallOptionsExt = {}> {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
+type DeepPartial<T> = T extends Builtin ? T
   : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
@@ -1350,7 +1348,7 @@ function isSet(value: any): boolean {
   return value !== null && value !== undefined;
 }
 
-export interface MessageFns<T> {
+interface MessageFns<T> {
   encode(message: T, writer?: BinaryWriter): BinaryWriter;
   decode(input: BinaryReader | Uint8Array, length?: number): T;
   fromJSON(object: any): T;

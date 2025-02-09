@@ -76,3 +76,12 @@ export { OpenAPIClient };
 
 
 export { TTechApiClient };
+
+
+export * from './compiled_contracts/instruments'
+export * from './compiled_contracts/marketdata'
+export * from './compiled_contracts/orders'
+export * from './compiled_contracts/operations'
+export * from './compiled_contracts/stoporders'
+export * from './compiled_contracts/users'
+export * from './compiled_contracts/common'
