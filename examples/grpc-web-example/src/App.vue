@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import {allShares} from './api'
 
-
-const shares = await allShares();
 
 </script>
 

@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "pinia": "^2.3.1",
+    "ts-money": "^0.4.8",
     "vue": "^3.5.13"
   },
   "devDependencies": {
