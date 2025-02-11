@@ -5343,5 +5343,4 @@ export declare namespace OrdersMessageUtils {
     create(base?: DeepPartial<T>): T;
     fromPartial(object: DeepPartial<T>): T;
   }
-
 }

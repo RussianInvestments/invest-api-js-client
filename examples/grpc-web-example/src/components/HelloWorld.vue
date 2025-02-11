@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { TTechApiClient } from 'invest-js-grpc-web'
 
 defineProps<{ msg: string }>()
-
-const client = new TTechApiClient({ token: 't.EqsWvcz64MTOiklfJ6i3L3jKHRHlgiZJcdjZSFN0o55h6SJfzO6ojZCAUVDZwVjcFMjnfP0uPuNHy4MqjQco5Q'})
-
 
 const count = ref(0)
 </script>

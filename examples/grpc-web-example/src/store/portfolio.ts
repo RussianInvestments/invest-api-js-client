@@ -1,21 +1,30 @@
 import { defineStore } from 'pinia'
-import { portfolios, type AccountPortfolio } from '../api'
+import { createApi, type AccountPortfolio, type ExtPosition } from '../api'
+import { useAuthStore } from './auth'
+import { computed, ref } from 'vue'
 
 export interface PortfolioState {
     loading: boolean
-    portfolios: AccountPortfolio[]
+    portfolios: AccountPortfolio[],
+    positions: ExtPosition[],
 }
 
-export const usePortfolioStore = defineStore('portfolio', {
-    state: (): PortfolioState => ({
-        portfolios: [],
-        loading: true
-    }),
-    actions: {
-        async loadPortfolio() {
-            const result = await portfolios()
-            this.portfolios =  result;
-            this.loading = false
+export const usePortfolioStore = defineStore('portfolio', 
+    () => {
+        const positionsRef = ref([] as ExtPosition[])
+        const loading = ref(true)
+        async function loadPortfolio() {
+            const authTokenStore = useAuthStore()
+            const result = await createApi(authTokenStore.authTokenRef).portfolios()
+
+            console.log('load portfolio', result)
+            positionsRef.value = result.flatMap(portfolio => portfolio.positions)
+            loading.value = false
+        }
+        const positions = computed(()=>positionsRef.value)
+        return {
+            positions,
+            loadPortfolio
         }
     }
-})
+)
