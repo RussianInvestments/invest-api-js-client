@@ -1,0 +1,43 @@
+{
+  "name": "@tinkoff/invest-js-grpc",
+  "version": "1.0.1-RC1",
+  "description": "TTech-Invest grpc api client",
+  "source": "src/index.ts",
+  "types": "./build/index.d.ts",
+  "exports": {
+    "types": "./build/index.d.ts", 
+    "require": "./dist/index.js",
+    "default": "./dist/index.modern.mjs"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "./node_modules/.bin/grpc_tools_node_protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./src/api --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false,exportCommonSymbols=false,outputIndex=true --proto_path=./../investAPI/src/docs/contracts/ ./../investAPI/src/docs/contracts/*.proto"
+  },
+  "author": "sr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RussianInvestments/invest-js"
+  },
+  "keywords": [
+    "trading",
+    "investment",
+    "grpc"
+  ],
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.8",
+    "grpc-tools": "^1.12.4",
+    "microbundle": "^0.15.1",
+    "ts-proto": "^2.6.1"
+  },
+  "dependencies": {
+    "long": "^5.2.4",
+    "nice-grpc": "^2.1.10",
+    "protobufjs": "^7.4.0"
+  }
+}

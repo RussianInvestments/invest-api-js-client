@@ -1,8 +1,9 @@
 import 'dotenv/config';
-import {OpenAPIClient} from '../src';
-import {InstrumentIdType} from '../build/generated/tinkoff/public/invest/api/contract/v1/InstrumentIdType';
-import {OrderDirection} from "../src/generated/tinkoff/public/invest/api/contract/v1/OrderDirection";
-import {OrderType} from "../src/generated/tinkoff/public/invest/api/contract/v1/OrderType";
+import {OpenAPIClient} from '../../src';
+import {InstrumentIdType} from '../../build/generated/tinkoff/public/invest/api/contract/v1/InstrumentIdType';
+import {OrderDirection} from "../../src/generated/tinkoff/public/invest/api/contract/v1/OrderDirection";
+import {OrderType} from "../../src/generated/tinkoff/public/invest/api/contract/v1/OrderType";
+
 
 const client = new OpenAPIClient({
   token: process.env.TOKEN as string,

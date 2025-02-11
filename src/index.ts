@@ -8,8 +8,10 @@ import type {
   StopordersType,
   UsersType,
 } from './types';
+
 import { PROTO_PATH } from './constants';
 import { load } from './load';
+import { TTechApiClient } from './client2'
 import { InstrumentsService } from './services/InstrumentsService';
 
 export const { SandboxService } = load<SandboxType>(PROTO_PATH + 'sandbox.proto');
@@ -71,3 +73,16 @@ class OpenAPIClient {
 }
 
 export { OpenAPIClient };
+
+
+export { TTechApiClient };
+
+
+export * from './compiled_contracts/instruments'
+export * from './compiled_contracts/marketdata'
+export * from './compiled_contracts/orders'
+export * from './compiled_contracts/operations'
+export * from './compiled_contracts/stoporders'
+export * from './compiled_contracts/users'
+export * from './compiled_contracts/common'
+export * from './compiled_contracts/sandbox'

@@ -1,13 +1,13 @@
 {
   "name": "@tinkoff/invest-js",
-  "version": "1.27.0",
+  "version": "1.27.1-RC4",
   "description": "T-Invest OpenAPI Client",
   "types": "./build/index.d.ts",
   "engines": {
     "node": ">=18.0.0"
   },
   "directories": {
-    "example": "example"
+    "examples": "examples"
   },
   "exports": {
     ".": "./build/index.js"
@@ -15,8 +15,8 @@
   "scripts": {
     "build": "sh ./tools/build.sh",
     "gen": "sh ./tools/gen.sh",
+    "gen-ts": "sh ./tools/gen-ts.sh",
     "watch": "tsc --watch",
-    "prepublishOnly": "echo 'git push --follow-tags && gh-release -y'",
     "version": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:' && git add CHANGELOG.md"
   },
   "repository": {
@@ -33,14 +33,19 @@
   "devDependencies": {
     "auto-changelog": "^1.16.2",
     "gh-release": "^7.0.2",
-    "ts-node": "^10.9.2"
+    "grpc-tools": "^1.12.4",
+    "ts-node": "^10.9.2",
+    "ts-proto": "^2.6.1"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.12.2",
     "@grpc/proto-loader": "^0.7.13",
     "@types/node": "^22.8.5",
-    "grpc-tools": "^1.12.4",
+    "long": "^5.2.4",
+    "nice-grpc": "^2.1.10",
+    "node-pre-gyp": "^0.17.0",
     "prettier": "^3.3.3",
+    "protobufjs": "^7.4.0",
     "tslib": "^2.0.0",
     "typescript": "^5.6.2"
   }
