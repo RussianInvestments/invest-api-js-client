@@ -69,6 +69,6 @@ client.instruments.shares({}, (x, y) => {
 
 # Отдельные библиотеки
 
-* grpc (@tinkoff/invest-js-grpc)[grpc/]
-* Поддержка grpc-web (@tinkoff/invest-js-grpc-web)[grpc-web/]
+* grpc [@tinkoff/invest-js-grpc](grpc/)
+* Поддержка grpc-web [@tinkoff/invest-js-grpc-web](grpc-web/)
 
