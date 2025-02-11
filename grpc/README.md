@@ -1,15 +1,15 @@
-# T-Tech Invest API grpc-web Typescript library
+# T-Tech Invest API grpc Typescript library
 
-Provides browser modules with promise api grpc stubs
+Provides modules with promise api
 
 ## Install using npm
 ```
-npm install @tinkoff/invest-js-grpc-web --save  
+npm install @tinkoff/invest-js-grpc --save  
 ```
 
 ## Usage
 ```
-import { TTechApiClient } from '@tinkoff/invest-js-grpc-web'
+import { TTechApiClient } from '@tinkoff/invest-js-grpc'
 
 const client = new TTechApiClient({ token: 't.invest.secret-token', metadata : {'x-app-name':'node-ts-myapp'}})
 
@@ -24,4 +24,3 @@ allInstruments()
     .catch(console.log)
 
 ```
-more examples in exmaples dir
